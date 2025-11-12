@@ -1,18 +1,33 @@
-import pdf from 'pdf-parse';
+import { PDFParse } from 'pdf-parse';
 import { logger } from '../lib/logger.js';
 
 export async function extractTextFromPdf(input) {
+  let parser;
   try {
-    const data = await pdf(input);
+    parser = new PDFParse({ data: input });
+    const textResult = await parser.getText();
+
+    let info = {};
+    try {
+      const infoResult = await parser.getInfo({ parsePageInfo: false });
+      info = infoResult?.info ?? {};
+    } catch (metaError) {
+      logger.warn({ error: metaError }, 'PDF metadata parse failed');
+    }
+
     return {
-      text: data.text,
+      text: textResult.text,
       meta: {
-        pages: data.numpages,
-        info: data.info ?? {},
+        pages: textResult.total,
+        info,
       },
     };
   } catch (error) {
     logger.error({ error }, 'PDF parse failed');
     throw error;
+  } finally {
+    if (parser) {
+      await parser.destroy().catch(() => {});
+    }
   }
 }
