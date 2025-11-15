@@ -1,7 +1,19 @@
 import { config } from 'dotenv';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 
-config();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const serverRoot = path.resolve(__dirname, '../..');
+const repoRoot = path.resolve(serverRoot, '..');
+
+// Load env vars from repo root first (for local dev), then allow server/.env to override.
+[path.resolve(repoRoot, '.env'), path.resolve(serverRoot, '.env')]
+  .filter((envPath, index, allPaths) => fs.existsSync(envPath) && allPaths.indexOf(envPath) === index)
+  .forEach((envPath) => {
+    config({ path: envPath });
+  });
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
