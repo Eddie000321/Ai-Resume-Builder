@@ -38,7 +38,7 @@ export function Landing() {
         <div className="md:w-1/2">
           <ResumeDropzone />
           <p className="mt-4 text-center text-xs text-slate-400">
-            No account yet? Drop your resume to start — we’ll ask you to sign in next.
+            No account yet? Drop your résumé to start then we will ask you to sign in next.
           </p>
         </div>
       </main>
