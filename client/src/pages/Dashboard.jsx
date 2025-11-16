@@ -108,7 +108,7 @@ export function Dashboard() {
               : 'Upload a résumé to unlock scoring.'}
           </p>
           {uploadMutation.isPending && (
-            <p className="mt-2 text-sm text-slate-400">Uploading resume…</p>
+            <p className="mt-2 text-sm text-slate-400">Uploading résumé…</p>
           )}
           {resumesQuery.isError && (
             <p className="mt-2 text-sm text-red-500">Unable to load résumés right now.</p>
