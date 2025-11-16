@@ -25,6 +25,22 @@ npm install
 npm run dev            # nodemon watches src/**/*.js
 ```
 
+The backend of the AI Resume Builder project is built using Node.js and Express, and it follows a clean MVC architecture. All core backend source files are located inside the /server/src directory, and the structure is organized so that configuration, routes, controllers, and models are clearly separated, making the system modular and easy to maintain.
+
+The configuration logic is contained in the config folder. The env.js file loads environment variables using the dotenv package and makes important settings—such as database credentials—available throughout the server. The database.js file is responsible for connecting the application to MongoDB Atlas through Mongoose, ensuring a stable and secure database connection.
+
+The main logic of the backend is implemented inside the controllers folder. The authController.js file manages all authentication-related features, including user registration, login, password verification, and JWT token generation. Additional controllers, such as resumeController.js or userController.js, can be added to handle features like resume processing or user profile management as the project expands.
+
+Data models are stored inside the models directory. The User.js model defines how user information is structured and saved in MongoDB. Passwords are securely hashed using bcrypt before being stored in the database. If new features are introduced later, such as resume analysis data, additional models like Resume.js can easily be added.
+
+All API endpoints are defined inside the routes folder. The authRoutes.js file handles routes related to user authentication, forwarding requests to the appropriate controller functions. Additional routes—for example, user routes or resume routes—can be created to manage different parts of the application while keeping the structure clean and maintainable.
+
+Security is handled through the middleware layer. The authMiddleware.js file verifies JWT tokens and ensures that only authenticated users can access protected API routes. This middleware plays an important role in protecting sensitive endpoints and user data.
+
+The entry point of the backend is the server.js file. It initializes environment variables, connects to MongoDB, sets up the Express application, registers all routes, and starts the server. This file ties the entire backend together and ensures that all components work smoothly as one system.
+
+The backend uses several key technologies, including Node.js, Express, MongoDB Atlas, Mongoose, JWT, bcrypt, and dotenv. All major API endpoints—such as signup, login, and user profile retrieval—were tested thoroughly using Thunder Client and Postman to ensure they function correctly and reliably.
+
 The API expects:
 
 - `POST /api/auth/signup|login|logout|me`
