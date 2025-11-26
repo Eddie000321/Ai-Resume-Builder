@@ -1,4 +1,4 @@
-import { NavBar } from "../components/NavBar";
+import { NavBar } from "../components/NavBar.jsx";
 import { ResumeDropzone } from "../features/resume/ResumeDropzone";
 import { Link } from "react-router-dom";
 

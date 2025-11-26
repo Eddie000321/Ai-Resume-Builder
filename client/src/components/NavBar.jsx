@@ -11,7 +11,7 @@ export function NavBar() {
           src="/teamlogo.jpg"  
           alt="Team Logo"
           className="h-20 w-20"
-        />
+        /> 
         <div>
           <p className="text-sm uppercase tracking-[0.3em] text-slate-400">
             Resume AI Lab

@@ -3,6 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import { api } from '../lib/api';
 import { JobModal } from '../features/job/JobModal';
 import { MatchCards } from '../features/match/MatchCards';
+import { Link } from "react-router-dom";   // 🔥 추가됨
 
 export function Dashboard() {
   const [isJobModalOpen, setIsJobModalOpen] = useState(false);
@@ -70,12 +71,20 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-white px-6 py-4">
+
+      {/* Dashboard Header */}
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-white px-6 py-4 mt-4">
+        
+        {/* Left side */}
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Dashboard</p>
           <h1 className="text-2xl font-semibold text-slate-900">Match Workspace</h1>
         </div>
+
+        {/* Right side */}
         <div className="flex gap-3">
+
+          {/* Upload Resume */}
           <button
             type="button"
             className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
@@ -83,6 +92,8 @@ export function Dashboard() {
           >
             Upload Résumé
           </button>
+
+          {/* New Match */}
           <button
             type="button"
             className="rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white"
@@ -90,7 +101,33 @@ export function Dashboard() {
           >
             + New Match
           </button>
+
+          {/* 🔥 Home */}
+          <Link
+            to="/"
+            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
+          >
+            Home
+          </Link>
+
+          {/* 🔥 Resume List */}
+          <Link
+            to="/resumes"
+            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
+          >
+            Resume List
+          </Link>
+
+          {/* 🔥 My Profile */}
+          <Link
+            to="/profile"
+            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
+          >
+            My Profile
+          </Link>
         </div>
+
+        {/* Hidden File Input */}
         <input
           type="file"
           accept="application/pdf"
@@ -100,37 +137,34 @@ export function Dashboard() {
         />
       </header>
 
+      {/* Main Content */}
       <main className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10">
+        
+        {/* Latest Resume */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm text-slate-500">
             {latestResumeName
               ? `Latest résumé: ${latestResumeName}`
               : 'Upload a résumé to unlock scoring.'}
           </p>
-          {uploadMutation.isPending && (
-            <p className="mt-2 text-sm text-slate-400">Uploading résumé…</p>
-          )}
-          {resumesQuery.isError && (
-            <p className="mt-2 text-sm text-red-500">Unable to load résumés right now.</p>
-          )}
         </section>
 
+        {/* Matches */}
         <section>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-900">Recent Matches</h2>
-            {matchMutation.isPending && (
-              <p className="text-sm text-slate-500">Scoring in progress…</p>
-            )}
           </div>
+
           <div className="mt-4">
-            <MatchCards matches={matchesQuery.data ?? []} isLoading={matchesQuery.isLoading} />
-            {matchesQuery.isError && (
-              <p className="mt-4 text-sm text-red-500">Unable to load matches right now.</p>
-            )}
+            <MatchCards
+              matches={matchesQuery.data ?? []}
+              isLoading={matchesQuery.isLoading}
+            />
           </div>
         </section>
       </main>
 
+      {/* Job Modal */}
       <JobModal
         open={isJobModalOpen}
         onClose={() => setIsJobModalOpen(false)}

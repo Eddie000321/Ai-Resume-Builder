@@ -13,7 +13,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ResumeDraftProvider>
-        <BrowserRouter>
+        <BrowserRouter>           
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Landing />} />
