@@ -3,7 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import { api } from '../lib/api';
 import { JobModal } from '../features/job/JobModal';
 import { MatchCards } from '../features/match/MatchCards';
-import { Link } from "react-router-dom";   // 🔥 추가됨
+import { Link } from "react-router-dom";   
 
 export function Dashboard() {
   const [isJobModalOpen, setIsJobModalOpen] = useState(false);
@@ -81,8 +81,8 @@ export function Dashboard() {
           <h1 className="text-2xl font-semibold text-slate-900">Match Workspace</h1>
         </div>
 
-        {/* Right side */}
-        <div className="flex gap-3">
+       {/* Right side */}
+        <div className="ml-auto flex items-center gap-3">
 
           {/* Upload Resume */}
           <button
@@ -102,13 +102,7 @@ export function Dashboard() {
             + New Match
           </button>
 
-          {/* 🔥 Home */}
-          <Link
-            to="/"
-            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
-          >
-            Home
-          </Link>
+          
 
           {/* 🔥 Resume List */}
           <Link
@@ -126,7 +120,13 @@ export function Dashboard() {
             My Profile
           </Link>
         </div>
-
+          {/* 🔥 Sign Out */}
+          <Link
+            to="/"
+            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700"
+          >
+            Sign Out
+          </Link>
         {/* Hidden File Input */}
         <input
           type="file"
