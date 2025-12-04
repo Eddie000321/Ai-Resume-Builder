@@ -1,8 +1,7 @@
 
 import Groq from "groq-sdk"
 
-//const client = new Groq({apikey: process.env.LLM_API_KEY})
-const client = new Groq({apikey: "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"})
+const client = new Groq({apikey: process.env.GROQ_API_KEY})
 
 async function queryResumenRec(resume_desc, job_desc){
     const prompt = `
