@@ -7,6 +7,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { embedText } from '../services/embed.service.js';
 import { computeScores } from '../services/score.service.js';
 import { generateSuggestions } from '../services/suggest.service.js';
+import { queryResumenRec} from '../servives/ai.query.service'
 
 const objectId = z
   .string()
