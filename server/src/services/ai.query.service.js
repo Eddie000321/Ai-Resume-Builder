@@ -1,9 +1,10 @@
 
 import Groq from "groq-sdk"
 
-const client = new Groq({apikey: process.env.LLM_API_KEY})
+//const client = new Groq({apikey: process.env.LLM_API_KEY})
+const client = new Groq({apikey: "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"})
 
-async function query_resumen_rec(text, resume_desc, job_desc){
+async function queryResumenRec(resume_desc, job_desc){
     const prompt = `
             Evaluate the following resume against the job description.
             Return ONLY a JSON object matcking this schema:
@@ -16,8 +17,15 @@ async function query_resumen_rec(text, resume_desc, job_desc){
                 experience: Number,
                 skills: Number,
                 ats: Number,
-                }
+                },
+                details: {
+                missingKeywords: [String],
+                weakSections: [{ section: String, why: String }],
+                experienceGaps: [{ jdRequirement: String, tip: String }],
+                },
+                suggestions: [String],
             }
+
             JOB:
             Tittle: ${job_desc.title}
             Company: ${job_desc.company}
@@ -33,10 +41,12 @@ async function query_resumen_rec(text, resume_desc, job_desc){
         temperature: 0
     })
 
-    const raw = response.choices[0].messages.content
+    const raw = response.choices[0].message.content
 
     const jsonText = raw.match(/\{[\s\S]*\}/)[0];
     const result = JSON.parse(jsonText)
 
-    return result.scores
+    return result
 }
+
+export {queryResumenRec}

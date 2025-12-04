@@ -7,7 +7,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { embedText } from '../services/embed.service.js';
 import { computeScores } from '../services/score.service.js';
 import { generateSuggestions } from '../services/suggest.service.js';
-import { queryResumenRec} from '../servives/ai.query.service'
+import { queryResumenRec} from '../services/ai.query.service.js'
 
 const objectId = z
   .string()
@@ -67,6 +67,11 @@ export const createMatch = asyncHandler(async (req, res) => {
       scores,
       details,
     });
+
+    const LLMMatch = await queryResumenRec({
+      resume,
+      job
+    })
 
     await Match.findByIdAndUpdate(match._id, {
       status: 'done',
