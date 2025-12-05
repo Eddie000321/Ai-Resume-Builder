@@ -18,6 +18,10 @@ export function Landing() {
           <h2 className="mt-4 text-4xl font-semibold text-slate-900">
             Drop your résumé, get instant fit scores, and actionable rewrite tips.
           </h2>
+          <p className="text-sm text-slate-500 mt-2">
+               This update is for CI/CD demonstration.
+          </p>
+
 
           <p className="mt-4 text-lg text-slate-500">
             We analyze your PDF against any job description, score semantic overlap,
