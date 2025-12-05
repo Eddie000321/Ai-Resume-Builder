@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "mongodb": "^7.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "vitest": "^4.0.15"
   }
 }
