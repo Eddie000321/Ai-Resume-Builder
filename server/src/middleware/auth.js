@@ -12,7 +12,12 @@ function decodeToken(token) {
 }
 
 export async function deserializeUser(req, _res, next) {
-  const token = req.cookies?.accessToken;
+  // Try Authorization header first, fall back to cookie
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.startsWith('Bearer ')
+    ? authHeader.substring(7)
+    : req.cookies?.accessToken;
+
   const payload = decodeToken(token);
 
   if (!payload) {

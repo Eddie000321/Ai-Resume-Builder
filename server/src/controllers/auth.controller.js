@@ -17,13 +17,6 @@ function serializeUser(user) {
   return rest;
 }
 
-function attachTokens(res, userId) {
-  setAuthCookies(res, {
-    access: signAccessToken(userId),
-    refresh: signRefreshToken(userId),
-  });
-}
-
 export const signup = asyncHandler(async (req, res) => {
   const payload = credentialsSchema.parse(req.body);
   const existing = await User.findOne({ email: payload.email });
@@ -32,9 +25,17 @@ export const signup = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create(payload);
-  attachTokens(res, user.id);
+  const accessToken = signAccessToken(user.id);
+  const refreshToken = signRefreshToken(user.id);
 
-  return res.status(201).json({ user: serializeUser(user) });
+  // Set cookies for backward compatibility
+  setAuthCookies(res, { access: accessToken, refresh: refreshToken });
+
+  return res.status(201).json({
+    user: serializeUser(user),
+    accessToken,
+    refreshToken
+  });
 });
 
 export const login = asyncHandler(async (req, res) => {
@@ -44,8 +45,17 @@ export const login = asyncHandler(async (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
-  attachTokens(res, user.id);
-  return res.json({ user: serializeUser(user) });
+  const accessToken = signAccessToken(user.id);
+  const refreshToken = signRefreshToken(user.id);
+
+  // Set cookies for backward compatibility
+  setAuthCookies(res, { access: accessToken, refresh: refreshToken });
+
+  return res.json({
+    user: serializeUser(user),
+    accessToken,
+    refreshToken
+  });
 });
 
 export const logout = asyncHandler(async (_req, res) => {
