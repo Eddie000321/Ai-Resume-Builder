@@ -3,7 +3,9 @@ import { env } from '../config/env.js';
 const commonCookieOptions = {
   httpOnly: true,
   secure: env.NODE_ENV === 'production',
-  sameSite: env.NODE_ENV === 'production' ? 'strict' : 'lax',
+  // Use SameSite=None in production so Netlify/other frontends on a different domain
+  // can receive the auth cookies. Lax is fine for local dev.
+  sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
   domain: env.COOKIE_DOMAIN,
 };
 
