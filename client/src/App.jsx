@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Landing } from "./pages/Landing.jsx";
@@ -8,8 +9,13 @@ import { ResumesPage } from "./pages/ResumesPage.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
 import { ResumeDraftProvider } from "./context/ResumeDraftContext.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+import { warmBackend } from "./lib/api.js";
 
 export default function App() {
+  useEffect(() => {
+    warmBackend();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ResumeDraftProvider>

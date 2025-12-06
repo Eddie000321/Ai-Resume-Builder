@@ -6,6 +6,7 @@ import matchRoutes from './match.routes.js';
 
 const router = Router();
 
+router.get('/health', (_req, res) => res.json({ status: 'ok' }));
 router.use('/auth', authRoutes);
 router.use('/resumes', resumeRoutes);
 router.use('/jobs', jobRoutes);

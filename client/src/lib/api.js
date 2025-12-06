@@ -16,3 +16,11 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export async function warmBackend() {
+  try {
+    await api.get("/health", { timeout: 5000 });
+  } catch {
+    // Best-effort warmup; ignore errors (cold start or sleeping dyno).
+  }
+}
