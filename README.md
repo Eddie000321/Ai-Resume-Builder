@@ -61,7 +61,7 @@ Pages already wired:
 - `/auth` – login/signup with automatic resume upload once authenticated
 - `/app` – protected dashboard showing resume status, job modal, and match cards
 
-Environment variables live in `client/.env` if you need to override `VITE_API_URL` (defaults to `/api` for the proxy setup).
+Environment variables live in `client/.env` if you need to set `VITE_API_BASE_URL` (defaults to `/api`) and optional `VITE_DEV_API_PROXY` for local API forwarding.
 
 ## Next steps
 
