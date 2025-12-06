@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "postinstall": "npm install --prefix server --production=false"
+  },
   "dependencies": {
     "mongodb": "^7.0.0",
     "node": "^20.19.6"
