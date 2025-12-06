@@ -26,6 +26,14 @@ app.use(
 );
 app.use(deserializeUser);
 
+app.get('/', (_req, res) => {
+  res.json({
+    service: 'ai-resume-builder-api',
+    status: 'ok',
+    docs: '/api',
+    health: '/health',
+  });
+});
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api', routes);
 app.use(errorHandler);
